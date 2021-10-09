@@ -12,7 +12,7 @@ class Jira {
   }
 
   async hasJiraTicket(issueKey) {
-    const response = await this.axios.get(
+    const response = await axios.get(
       `${this.baseUrl}issue/${issueKey}`,
       this.config,
     );
