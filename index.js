@@ -15,7 +15,7 @@ const findIssueKeys = async (jira, searchStr) => {
 const setFixVersion = async (jira, keys) => {
   if (!keys) return;
 
-  Promise.all(keys.map(async (key) => {
+  await Promise.all(keys.map(async (key) => {
     await jira.editTicket(key);
   }));
 };
