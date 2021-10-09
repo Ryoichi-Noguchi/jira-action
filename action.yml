@@ -1,10 +1,27 @@
-name: 'Hello World'
+name: 'Create Jira Release'
 description: 'Greet someone and record the time'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  username:  # id of input
+    description: 'Your email address registered as Jira account id'
     required: true
-    default: 'World'
+  password:  # id of input
+    description: 'Your Jira token which is generated for your jira email'
+    required: true
+  domain:
+    description: 'Your jira domain'
+    required: true
+  projectId:
+    description: 'Jira project id'
+    required: true
+  releaseName:
+    description: 'Jira release version name'
+    required: true
+  description:
+    description: 'Jira release description'
+    required: true
+  issueKeyText:
+    description: 'Text get looked for issue key'
+    required: true
 outputs:
   time: # id of output
     description: 'The time we greeted you'
