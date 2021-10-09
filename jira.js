@@ -5,7 +5,7 @@ const headers = {
   'X-Atlassian-Token': 'no-check',
 };
 
-export default class Jira {
+class Jira {
   constructor(domain, username, password) {
     this.baseUrl = `https://${domain}.atlassian.net/rest/api/3/`;
     this.config = { auth: { username, password }, headers };
@@ -68,3 +68,5 @@ export default class Jira {
     console.log(`Created version :${name}`);
   }
 }
+
+module.exports = Jira;
