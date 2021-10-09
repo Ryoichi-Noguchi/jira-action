@@ -1,6 +1,5 @@
-import Jira from './jira';
-
 const core = require('@actions/core');
+const Jira = require('./jira');
 
 const findIssueKeys = async (jira, searchStr) => {
   const issueIdRegEx = /([a-zA-Z0-9]+-[0-9]+)/g;
