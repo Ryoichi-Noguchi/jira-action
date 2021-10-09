@@ -1,6 +1,6 @@
-# Hello world javascript action
+# Automatic Jira Release Action
 
-This action prints "Hello World" or "Hello" + the name of a person to greet to the log.
+This action make new release on Jira and link the release and related tickets
 
 ## Inputs
 
@@ -34,6 +34,7 @@ This action prints "Hello World" or "Hello" + the name of a person to greet to t
 
 ## Example usage
 
+```yaml
 uses: RyoichiNoguchi/jira-action@v1.0.0
 with:
   username: 'sample@sample.com'
@@ -43,3 +44,4 @@ with:
   releaseName: 'v1.0.0'
   description: 'https://github.com/organization/repository/releases/tag/v1.0.0'
   issueKeyText: 'ABC-123 Fix issue'
+```
