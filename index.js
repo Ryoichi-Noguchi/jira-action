@@ -1,15 +1,42 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
+import Jira from './jira';
 
-try {
-  // `who-to-greet` input defined in action metadata file
-  const nameToGreet = core.getInput('who-to-greet');
-  console.log(`Hello ${nameToGreet}!`);
-  const time = (new Date()).toTimeString();
-  core.setOutput("time", time);
-  // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(github.context.payload, undefined, 2)
-  console.log(`The event payload: ${payload}`);
-} catch (error) {
-  core.setFailed(error.message);
-}
+const core = require('@actions/core');
+
+const findIssueKeys = async (jira, searchStr) => {
+  const issueIdRegEx = /([a-zA-Z0-9]+-[0-9]+)/g;
+  const match = searchStr.match(issueIdRegEx);
+  const foundKeys = [];
+  await Promise.all(match.map(async (s) => {
+    const hasTicket = await jira.hasJiraTicket(s);
+    if (hasTicket) foundKeys.push(s);
+  }));
+  return foundKeys;
+};
+
+const setFixVersion = async (jira, keys) => {
+  if (!keys) return;
+
+  Promise.all(keys.map(async (key) => {
+    await jira.editTicket(key);
+  }));
+};
+
+const main = async () => {
+  try {
+    const username = core.getInput('username');
+    const password = core.getInput('password');
+    const domain = core.getInput('domain');
+    const projectId = core.getInput('projectId');
+    const releaseName = core.getInput('releaseName');
+    const description = core.getInput('description');
+    // const issueKeyText = core.getInput('issueKeyText');
+    const jira = new Jira(domain, username, password);
+    await jira.createRelease(releaseName, description, projectId);
+    // const keys = await findIssueKeys(jira, issueKeyText);
+    // await setFixVersion(jira, keys);
+  } catch (error) {
+    core.setFailed(error.message);
+  }
+};
+
+main();
