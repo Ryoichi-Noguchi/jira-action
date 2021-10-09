@@ -44,7 +44,7 @@ class Jira {
       throw new Error('Failed to update fix version on ticket');
     }
     // eslint-disable-next-line no-console
-    // console.log(`Set fix version: ${releaseName} for ${issueKey}`);
+    console.log(`Set ${releaseName} as a fix version`);
   }
 
   async createRelease(name, description, projectId) {
