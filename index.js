@@ -12,11 +12,11 @@ const findIssueKeys = async (jira, searchStr) => {
   return foundKeys;
 };
 
-const setFixVersion = async (jira, keys) => {
+const setFixVersion = async (jira, keys, releaseName) => {
   if (!keys) return;
 
   await Promise.all(keys.map(async (key) => {
-    await jira.editTicket(key);
+    await jira.editTicket(key, releaseName);
   }));
 };
 
@@ -32,7 +32,7 @@ const main = async () => {
     const jira = new Jira(domain, username, password);
     await jira.createRelease(releaseName, description, projectId);
     const keys = await findIssueKeys(jira, issueKeyText);
-    await setFixVersion(jira, keys);
+    await setFixVersion(jira, keys, releaseName);
   } catch (error) {
     core.setFailed(error.message);
   }
