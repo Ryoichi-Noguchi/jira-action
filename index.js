@@ -28,10 +28,11 @@ const main = async () => {
     const projectId = core.getInput('projectId');
     const releaseName = core.getInput('releaseName');
     const description = core.getInput('description');
-    // const issueKeyText = core.getInput('issueKeyText');
+    const issueKeyText = core.getInput('issueKeyText');
     const jira = new Jira(domain, username, password);
-    await jira.createRelease(releaseName, description, projectId);
-    // const keys = await findIssueKeys(jira, issueKeyText);
+    // await jira.createRelease(releaseName, description, projectId);
+    const keys = await findIssueKeys(jira, issueKeyText);
+    console.log(keys);
     // await setFixVersion(jira, keys);
   } catch (error) {
     core.setFailed(error.message);
