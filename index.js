@@ -32,8 +32,7 @@ const main = async () => {
     const jira = new Jira(domain, username, password);
     // await jira.createRelease(releaseName, description, projectId);
     const keys = await findIssueKeys(jira, issueKeyText);
-    console.log(keys);
-    // await setFixVersion(jira, keys);
+    await setFixVersion(jira, keys);
   } catch (error) {
     core.setFailed(error.message);
   }
