@@ -30,7 +30,7 @@ const main = async () => {
     const description = core.getInput('description');
     const issueKeyText = core.getInput('issueKeyText');
     const jira = new Jira(domain, username, password);
-    // await jira.createRelease(releaseName, description, projectId);
+    await jira.createRelease(releaseName, description, projectId);
     const keys = await findIssueKeys(jira, issueKeyText);
     await setFixVersion(jira, keys);
   } catch (error) {
