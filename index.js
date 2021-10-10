@@ -13,7 +13,10 @@ const findIssueKeys = async (jira, searchStr) => {
 };
 
 const setFixVersion = async (jira, keys, releaseName) => {
-  if (!keys) return;
+  if (keys.length <= 0) {
+    console.log('Not found issue keys on input text');
+    return;
+  }
 
   await Promise.all(keys.map(async (key) => {
     await jira.editTicket(key, releaseName);
